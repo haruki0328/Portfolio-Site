@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haruki Takasu | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .typed-cursor {
+            font-size: 7vw;
+            color: var(--accent, #4a90e2);
+        }
+
+        .vanta-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <div class="cursor-follower"></div>
+    <div class="cursor-dot"></div>
+
+    <div class="loader-wrap">
+        <div class="loader-text-wrap">
+            <span class="loader-text">Haruki</span>
+            <span class="loader-text">Takasu</span>
+        </div>
+    </div>
+
+    <nav id="global-nav">
+        <div class="nav-container">
+            <a href="#hero" class="logo magnetic-btn">HARUKI.</a>
+            <ul class="nav-links">
+                <li><a href="#about" class="magnetic-btn">About</a></li>
+                <li><a href="#works" class="magnetic-btn">Works</a></li>
+                <li><a href="#contact" class="magnetic-btn">Contact</a></li>
+            </ul>
+            <div class="hamburger magnetic-btn"><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <div id="vanta-bg" style="position:absolute; width:100%; height:100%;"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <div class="overflow-hidden"><span class="reveal-text">I am a</span></div>
+                    <div class="overflow-hidden"><span id="typed-text" class="text-outline"></span></div>
+                </h1>
+                <p class="hero-sub reveal-delay">Based in Fukuoka / Student</p>
+                <div class="hero-sub-wrapper reveal-delay">
+                    <div class="location-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16"
+                            height="16">
+                            <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        </svg>
+                        <span>Fukuoka, JP</span>
+                    </div>
+                    <span class="divider">/</span>
+                    <span class="role-text">Student</span>
+                </div>
+            </div>
+            <div class="scroll-prompt"><span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <section id="about" class="section-padding">
+            <div class="marquee-text"><span>WHO I AM — HARUKI TAKASU — INFRASTRUCTURE — CREATIVE — </span></div>
+            <div class="container split-layout">
+                <div class="about-visual parallax-img">
+                    <div class="image-wrapper"><img src="img/profile.png" alt="Profile" class="hover-zoom"></div>
+                    <div class="floating-badge"><span>EST. 2005</span></div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-heading">About Me</h2>
+                    <h3 class="catchphrase">「仕組み」を理解し、<br>「体験」を創る。</h3>
+                    <p class="desc">
+                        福岡県出身。専門学校にてサーバー・ネットワーク構築を学ぶ傍ら、WebフロントエンドやAI技術にも領域を広げています。Intel社との産学連携プロジェクトでの受賞経験や、趣味のギターとAIを組み合わせた開発など、「技術×アイデア」で課題を解決することが私の強みです。
+                    </p>
+                    <div class="about-social">
+                        <a href="https://github.com/YOUR_ID" target="_blank" class="magnetic-btn icon-btn"
+                            aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                                height="24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="skills-ticker">
+                        <div class="ticker-content">
+                            <span>Java</span><span>SQL</span><span>Python</span><span>HTML5</span><span>JavaScript</span><span>React</span><span>CSS</span><span>Git</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="works" class="section-padding">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-heading">Selected Works</h2>
+                    <p class="section-sub">クリックで詳細を表示します</p>
+                </div>
+                <div class="filter-wrap magnetic-area">
+                    <button class="filter-btn active magnetic-btn" data-filter="all">All</button>
+                    <button class="filter-btn magnetic-btn" data-filter="web">Web / App</button>
+                    <button class="filter-btn magnetic-btn" data-filter="infra">Infrastructure</button>
+                </div>
+                <div class="works-grid">
+                    <article class="work-card tilt-card" data-category="web" data-title="Guitar Tab AI"
+                        data-desc="MP3/WAV音源をアップロードするだけで、AIがギターパートを抽出し、自動でTAB譜（タブ譜）を生成するWebアプリケーションです。"
+                        data-tools="Python / Streamlit / Demucs / Omnizart"
+                        data-img="https://i.pinimg.com/736x/88/0a/15/880a157068f03681cf77c5ab6bb874cb.jpg"
+                        data-github="https://github.com/haruki0328/earcopyai-main"
+                        data-link="works/guitar-tab-ai.html">
+                        <div class="card-inner">
+                            <div class="card-thumb"><img
+                                    src="https://i.pinimg.com/736x/88/0a/15/880a157068f03681cf77c5ab6bb874cb.jpg">
+                                <div class="card-overlay"><span>View Detail</span></div>
+                            </div>
+                            <div class="card-info">
+                                <h3>Guitar Tab AI</h3>
+                                <p>AI Development</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work-card tilt-card" data-category="infra" data-title="Home Server"
+                        data-desc="Linuxサーバー構築・運用。" data-tools="Linux / Docker"
+                        data-img="https://i.pinimg.com/1200x/a1/74/ae/a174ae47c5a7acc8300b688b53ea9728.jpg">
+                        <div class="card-inner">
+                            <div class="card-thumb"><img
+                                    src="https://i.pinimg.com/1200x/a1/74/ae/a174ae47c5a7acc8300b688b53ea9728.jpg">
+                                <div class="card-overlay"><span>View Detail</span></div>
+                            </div>
+                            <div class="card-info">
+                                <h3>Home Server</h3>
+                                <p>Infrastructure</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work-card tilt-card" data-category="web" data-title="Book Review App"
+                        data-desc="読んだ本の管理やレビューを投稿・共有できるWebアプリケーション。直感的なUIとスムーズな検索・インプレッション管理が特徴です。"
+                        data-tools="Python / Streamlit / Open Library API"
+                        data-img="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=800&q=80"
+                        data-github="https://github.com/haruki0328/2306070015_takasu_AIkadai2">
+                        <div class="card-inner">
+                            <div class="card-thumb">
+                                <img
+                                    src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=800&q=80">
+                                <div class="card-overlay"><span>View Detail</span></div>
+                            </div>
+                            <div class="card-info">
+                                <h3>Book Review App</h3>
+                                <p>Web Application</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work-card tilt-card" data-category="web" data-title="Portfolio Site"
+                        data-desc="自身のスキルや制作物を紹介するためのポートフォリオサイト。GSAPを用いた滑らかなスクロール連動アニメーションや、Vanta.jsによる動的な背景演出など、視覚効果とUI/UXにこだわって構築しました。"
+                        data-tools="HTML5 / CSS3 / JavaScript (GSAP / Vanta.js)"
+                        data-img="img/スクリーンショット 2026-07-01 034916.png">
+                        <div class="card-inner">
+                            <div class="card-thumb">
+                                <img src="img/スクリーンショット 2026-07-01 034916.png">
+                                <div class="card-overlay"><span>View Detail</span></div>
+                            </div>
+                            <div class="card-info">
+                                <h3>Portfolio Site</h3>
+                                <p>Web Design / Front-end</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-padding">
+            <div class="container text-center">
+                <h2 class="section-heading">Contact</h2>
+                <p class="section-sub">お気軽にご連絡ください</p>
+                <form class="stylish-form" id="contact-form">
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="message" rows="5" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="filter-btn magnetic-btn">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-inner"><span class="copyright">&copy; 2026 Haruki Takasu</span></div>
+    </footer>
+
+    <div class="modal" id="work-modal">
+        <div class="modal-bg"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-img-wrap"><img id="modal-img" src="" alt=""></div>
+            <div class="modal-body">
+                <span id="modal-cat" class="modal-cat"></span>
+                <h3 id="modal-title"></h3>
+                <p id="modal-desc"></p>
+                <p class="modal-tools-label">Tools: <span id="modal-tools"></span></p>
+                <a id="modal-github" class="modal-github-link magnetic-btn" href="" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                        height="20">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>View on GitHub</span>
+                </a>
+                <a id="modal-detail-link" class="modal-github-link magnetic-btn" href="">
+                    <span>詳しく見る &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

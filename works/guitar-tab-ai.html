@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Tab AI | Haruki Takasu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="cursor-follower"></div>
+    <div class="cursor-dot"></div>
+    <nav class="detail-nav">
+        <a href="../index.html#works" class="back-link">&larr; Back to Works</a>
+    </nav>
+
+    <main class="detail-main">
+        <span class="detail-eyebrow">AI Development</span>
+        <h1 class="detail-title">Guitar Tab AI</h1>
+        <p class="detail-lede">
+            ギター演奏のMP3／WAV音源をアップロードするだけで、AIが楽曲からギターパートだけを抽出し、自動でTAB譜（タブ譜）を生成するWebアプリです。耳コピにかかる時間を大幅に短縮することを目的に開発しました。
+        </p>
+
+        <div class="tag-row">
+            <span class="tag-pill">Python</span>
+            <span class="tag-pill">Streamlit</span>
+            <span class="tag-pill">Demucs</span>
+            <span class="tag-pill">Omnizart</span>
+        </div>
+
+        <div class="detail-cta-row">
+            <a href="https://github.com/haruki0328/earcopyai-main" target="_blank" rel="noopener"
+                class="modal-github-link" style="display:inline-flex;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                    height="20">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+                <span>View on GitHub</span>
+            </a>
+        </div>
+
+        <p class="detail-note">
+            このアプリはDemucs／Omnizartによる音源分離・解析処理を行うため、実行にはGPU環境を含むローカルセットアップが必要で、Web上での公開デモは用意していません。代わりにこのページでは、実際の操作画面のスクリーンショットを使って一連の流れを紹介します。
+        </p>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">概要</h2>
+            <p>
+                バンドスコアが存在しない楽曲や、耳コピが難しいフレーズに対して、AIの力を借りてTAB譜の下書きを自動生成するツールです。Streamlitでシンプルなアップロード画面を用意し、裏側ではDemucsで楽曲からギター音源を分離、Omnizartで音高・タイミングを解析してTAB譜に変換しています。
+            </p>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">使い方の流れ</h2>
+
+            <div class="step-block">
+                <span class="step-number">01</span>
+                <div class="step-body">
+                    <h3>音源をアップロード</h3>
+                    <p>
+                        画面左の「調整オプション」で、カポタストの位置・使用するAIモデル・移調（半音単位）を事前に設定できます。中央のアップロード欄にMP3またはWAVファイルをドラッグ＆ドロップするか、「Browse files」から選択します（200MBまで対応）。
+                    </p>
+                    <div class="screenshot-frame">
+                        <img src="img/guitar-tab-ai-01-upload.png" alt="音源アップロード前の初期画面。左にカポタスト位置・使用モデル・移調の設定パネル、中央にファイルアップロード欄が表示されている">
+                    </div>
+                    <p class="screenshot-caption">アップロード前の初期画面。左側で解析条件を設定する。</p>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <span class="step-number">02</span>
+                <div class="step-body">
+                    <h3>音源を確認して解析を実行</h3>
+                    <p>
+                        ファイルをアップロードすると、元の音源がプレイヤーで再生確認できるようになります。内容に問題がなければ「解析スタート」ボタンを押すと処理が始まり、画面下部に進捗が表示されます。最初のステップは「Step 1/3: ギター分離中（Demucs）...」で、ここで楽曲からギターパートのみを分離しています。
+                    </p>
+                    <div class="screenshot-frame">
+                        <img src="img/guitar-tab-ai-02-analyze.png" alt="音源アップロード後の画面。元の音源プレイヤーと解析スタートボタンが表示され、Step1/3としてDemucsによるギター分離処理が進行中">
+                    </div>
+                    <p class="screenshot-caption">アップロード済みの音源を再生確認し、解析をスタートした直後の状態。</p>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <span class="step-number">03</span>
+                <div class="step-body">
+                    <h3>分離音源とTAB譜を確認</h3>
+                    <p>
+                        解析が完了すると、ギターのみが分離された音源と、自動生成されたTAB譜（6弦分のタブ譜形式）が並んで表示されます。カポタスト位置や移調の設定を変更すると、再解析なしでTAB譜の表示にも反映される仕組みです。生成結果はそのままダウンロードして練習用に使えます。
+                    </p>
+                    <div class="screenshot-frame">
+                        <img src="img/guitar-tab-ai-03-result.png" alt="解析完了後の画面。分離されたギター音源のプレイヤーと、自動生成された6弦のTAB譜がテキスト形式で表示されている">
+                    </div>
+                    <p class="screenshot-caption">分離されたギター音源と、自動生成されたTAB譜の表示結果。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">主な機能</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>カポタスト位置の指定</h4>
+                    <p>0〜7フレットの範囲でカポ位置を設定し、実際の演奏フォームに合わせたTAB譜を生成できます。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>使用モデルの選択</h4>
+                    <p>解析に使うAIモデル（music-guitar-v1など）を切り替えられ、楽曲の傾向に応じて使い分けが可能です。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>移調（半音単位）</h4>
+                    <p>原曲のキーを変えずに弾きたい場合などに、半音単位での移調をワンクリックで反映できます。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-inner"><span class="copyright">&copy; 2026 Haruki Takasu</span></div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorFollower = document.querySelector(".cursor-follower");
+        document.addEventListener("mousemove", (e) => {
+            gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0 });
+            gsap.to(cursorFollower, { x: e.clientX, y: e.clientY, duration: 0.15 });
+        });
+        document.querySelectorAll("a, button").forEach(el => {
+            el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
+            el.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
+        });
+    </script>
+</body>
+
+</html>
