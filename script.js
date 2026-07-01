@@ -309,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalTools = document.getElementById("modal-tools");
     const modalCat = document.getElementById("modal-cat");
     const modalGithub = document.getElementById("modal-github");
+    const modalDemoLink = document.getElementById("modal-demo-link");
     const modalDetailLink = document.getElementById("modal-detail-link");
     const modalClose = document.querySelector(".modal-close");
     const modalBg = document.querySelector(".modal-bg");
@@ -321,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cat = card.getAttribute("data-category");
             const img = card.getAttribute("data-img");
             const github = card.getAttribute("data-github");
+            const demo = card.getAttribute("data-demo");
             const link = card.getAttribute("data-link");
 
             modalTitle.textContent = title;
@@ -334,6 +336,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalGithub.style.display = "inline-flex";
             } else {
                 modalGithub.style.display = "none";
+            }
+
+            if (demo) {
+                modalDemoLink.href = demo;
+                modalDemoLink.style.display = "inline-flex";
+            } else {
+                modalDemoLink.style.display = "none";
             }
 
             if (link) {

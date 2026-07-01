@@ -548,6 +548,18 @@ body.hovering .cursor-follower {
     border-color: #fff;
 }
 
+.modal-demo-link {
+    margin-right: 12px;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.modal-demo-link:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
 .modal-body {
     padding: 30px;
 }

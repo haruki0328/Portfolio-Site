@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris (MVC Edition) | Haruki Takasu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="cursor-follower"></div>
+    <div class="cursor-dot"></div>
+    <nav class="detail-nav">
+        <a href="../index.html#works" class="back-link">&larr; Back to Works</a>
+    </nav>
+
+    <main class="detail-main">
+        <span class="detail-eyebrow">Game Development</span>
+        <h1 class="detail-title">Tetris (MVC Edition)</h1>
+        <p class="detail-lede">
+            Java (Swing) を用いて、MVC (Model-View-Controller) アーキテクチャに基づき実装したテトリスです。7-bagアルゴリズムやDAS、ホールド機能など、実際のテトリス実装に近い仕様を一通り盛り込みました。
+        </p>
+
+        <div class="tag-row">
+            <span class="tag-pill">Java</span>
+            <span class="tag-pill">Swing</span>
+            <span class="tag-pill">MVCアーキテクチャ</span>
+        </div>
+
+        <div class="detail-cta-row">
+            <a href="https://github.com/haruki0328/Tetris" target="_blank" rel="noopener"
+                class="modal-github-link" style="display:inline-flex;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                    height="20">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+                <span>View on GitHub</span>
+            </a>
+        </div>
+
+        <p class="detail-note">
+            Java (Swing) 製のデスクトップアプリのため、Web上での公開デモは用意していません。このページでは実際に起動してプレイした画面のスクリーンショットで内容を紹介します。手元で試したい場合は、GitHubリポジトリの<code>Tetris.jar</code>をダウンロードしてダブルクリックするだけで、Javaがインストールされた環境ならすぐ起動できます。
+        </p>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">概要</h2>
+            <p>
+                Model / View / Controller を明確に分離して実装したテトリスです。Modelは盤面の状態管理と衝突判定・行削除を担当し、Viewは描画のみ、Controllerがゲームループと入力処理を担当します。View（Swingコンポーネント）はModel/Controllerの実装を直接知らず、Observerパターンで通知を受け取るだけの設計にしています。
+            </p>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">画面</h2>
+            <div class="step-block">
+                <span class="step-number">01</span>
+                <div class="step-body">
+                    <h3>プレイ画面</h3>
+                    <p>
+                        左側が盤面、右側にスコア・レベル・消去ライン数・ホールド・NEXTを表示します。ミノを積んでいくと自動的にレベルが上がり、落下速度も速くなります。
+                    </p>
+                    <div class="screenshot-frame">
+                        <img src="img/tetris-01-play.png" alt="Tetrisのプレイ画面。左側に色とりどりのテトリミノが積み上がった盤面、右側にスコア・レベル・ライン数・ホールド・NEXTの表示がある">
+                    </div>
+                    <p class="screenshot-caption">実際にプレイ中の盤面。右側にスコア・NEXTなどの情報を表示。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">主な機能</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>7-bagアルゴリズム</h4>
+                    <p>7種類のテトリミノを1セットとしてシャッフルして出現させることで、特定のミノばかり出続ける偏りを防いでいます。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>DAS (Delayed Auto Shift)</h4>
+                    <p>左右キーを押しっぱなしにすると、一定時間後から高速でリピート移動するようにしています。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>簡易Wall Kick</h4>
+                    <p>壁際・床際で回転がそのまま入らない場合に、いくつかのオフセットを試して回転を成立させます。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>ホールド機能</h4>
+                    <p>現在のテトリミノを保留して後で使う、一般的なテトリス実装と同様のホールド機能を実装しています。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">操作方法</h2>
+            <table style="width:100%; border-collapse:collapse; color:var(--text-sub);">
+                <tr style="border-bottom:1px solid #1f1f28;">
+                    <th style="text-align:left; padding:8px 0; color:#fff;">キー</th>
+                    <th style="text-align:left; padding:8px 0; color:#fff;">動作</th>
+                </tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">← / A</td><td style="padding:8px 0;">左移動（押しっぱなしで加速：DAS）</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">→ / D</td><td style="padding:8px 0;">右移動（押しっぱなしで加速：DAS）</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">↓ / S</td><td style="padding:8px 0;">ソフトドロップ</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">↑ / W</td><td style="padding:8px 0;">時計回り回転</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">Z</td><td style="padding:8px 0;">反時計回り回転</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">Space</td><td style="padding:8px 0;">ハードドロップ（即着地）</td></tr>
+                <tr style="border-bottom:1px solid #1f1f28;"><td style="padding:8px 0;">P</td><td style="padding:8px 0;">一時停止 / 再開</td></tr>
+                <tr><td style="padding:8px 0;">C / Shift</td><td style="padding:8px 0;">ホールド（現在のミノを保留・入れ替え）</td></tr>
+            </table>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">今後の改善点</h2>
+            <p>
+                ゴーストピース（着地予測位置の表示）は未実装です。またWall Kickは正式なSRS(Super Rotation System)ではなく簡易実装のため、特定の回転パターンでは挙動が異なる場合があります。
+            </p>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-inner"><span class="copyright">&copy; 2026 Haruki Takasu</span></div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorFollower = document.querySelector(".cursor-follower");
+        document.addEventListener("mousemove", (e) => {
+            gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0 });
+            gsap.to(cursorFollower, { x: e.clientX, y: e.clientY, duration: 0.15 });
+        });
+        document.querySelectorAll("a, button").forEach(el => {
+            el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
+            el.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
+        });
+    </script>
+</body>
+
+</html>
