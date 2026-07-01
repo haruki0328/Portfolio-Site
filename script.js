@@ -1,14 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     gsap.registerPlugin(ScrollTrigger);
 
-    // --- 1. Init: Typed.js & Vanta.js ---
-    if (document.getElementById("typed-text") && typeof Typed !== "undefined") {
-        new Typed("#typed-text", {
+    // --- 設定値の一元管理 ---
+    const CONFIG = {
+        typing: {
             strings: ["Engineer.", "Creator.", "Student."],
             typeSpeed: 80,
             backSpeed: 40,
             backDelay: 1500,
+        },
+        vanta: {
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x8a7cff,
+            color2: 0xff7ab8,
+            backgroundColor: 0x0a0a12,
+            points: 7.00,
+            maxDistance: 26.00,
+            spacing: 22.00,
+            resizeDebounceMs: 100
+        },
+        cursor: {
+            followerDuration: 0.15
+        },
+        loader: {
+            textStagger: 0.1,
+            textDuration: 1.0,
+            wrapDuration: 1.0,
+            wrapDelay: 0.5
+        },
+        animation: {
+            heroScale: 1.5,
+            marqueeXPercent: -20,
+            revealDuration: 1.5,
+            cardYOffset: 100,
+            cardDuration: 1.0,
+            cardStagger: 0.2,
+            headingYOffset: 50,
+            magneticFactor: 0.3,
+            magneticDuration: 0.3,
+            tiltMaxRotation: 10,
+            tiltDuration: 0.5,
+            filterDuration: 0.5,
+            filterScaleStart: 0.8
+        }
+    };
+
+    // --- 1. 初期化: タイピングアニメーションと背景エフェクト ---
+    if (document.getElementById("typed-text") && typeof Typed !== "undefined") {
+        new Typed("#typed-text", {
+            strings: CONFIG.typing.strings,
+            typeSpeed: CONFIG.typing.typeSpeed,
+            backSpeed: CONFIG.typing.backSpeed,
+            backDelay: CONFIG.typing.backDelay,
             loop: true,
             showCursor: true
         });
@@ -21,82 +67,79 @@ document.addEventListener("DOMContentLoaded", () => {
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x8a7cff,
-            color2: 0xff7ab8,
-            backgroundColor: 0x0a0a12,
-            points: 7.00,
-            maxDistance: 26.00,
-            spacing: 22.00,
+            minHeight: CONFIG.vanta.minHeight,
+            minWidth: CONFIG.vanta.minWidth,
+            scale: CONFIG.vanta.scale,
+            scaleMobile: CONFIG.vanta.scaleMobile,
+            color: CONFIG.vanta.color,
+            color2: CONFIG.vanta.color2,
+            backgroundColor: CONFIG.vanta.backgroundColor,
+            points: CONFIG.vanta.points,
+            maxDistance: CONFIG.vanta.maxDistance,
+            spacing: CONFIG.vanta.spacing,
             showDots: true
         });
 
-        // Resize observer for Vanta background
+        // リサイズイベントの連続発火を防ぐデバウンス処理
         let resizeTimer;
         window.addEventListener("resize", () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                if (vantaEffect) {
-                    vantaEffect.width = window.innerWidth;
-                    vantaEffect.height = window.innerHeight;
-
-                    if (typeof vantaEffect.resize === "function") {
-                        vantaEffect.resize();
-                    }
+                if (vantaEffect && typeof vantaEffect.resize === "function") {
+                    vantaEffect.resize();
                 }
-            }, 100);
+            }, CONFIG.vanta.resizeDebounceMs);
         });
     }
 
-    // --- 2. Custom Cursor & Loader ---
+    // --- 2. カスタムカーソルとローダー ---
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorFollower = document.querySelector(".cursor-follower");
 
     document.addEventListener("mousemove", (e) => {
         gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0 });
-        gsap.to(cursorFollower, { x: e.clientX, y: e.clientY, duration: 0.15 });
+        gsap.to(cursorFollower, { x: e.clientX, y: e.clientY, duration: CONFIG.cursor.followerDuration });
     });
 
     const hoverLinks = document.querySelectorAll("a, button, .work-card");
     hoverLinks.forEach(link => {
-        link.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
-        link.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
+        link.addEventListener("mouseenter", () => {
+            document.body.classList.add("hovering");
+        });
+        link.addEventListener("mouseleave", () => {
+            document.body.classList.remove("hovering");
+        });
     });
 
     const tl = gsap.timeline();
     tl.to(".loader-text", {
         y: 0,
-        stagger: 0.1,
-        duration: 1,
+        stagger: CONFIG.loader.textStagger,
+        duration: CONFIG.loader.textDuration,
         ease: "power4.out"
     })
         .to(".loader-wrap", {
             y: "-100%",
-            duration: 1,
+            duration: CONFIG.loader.wrapDuration,
             ease: "power2.inOut",
-            delay: 0.5,
+            delay: CONFIG.loader.wrapDelay,
             onStart: () => {
                 document.body.classList.remove("loading");
             }
         })
         .from(".reveal-text", {
             y: "100%",
-            stagger: 0.1,
-            duration: 1,
+            stagger: CONFIG.loader.textStagger,
+            duration: CONFIG.loader.textDuration,
             ease: "power3.out"
         })
         .to(".hero-sub, .hero-sub-wrapper", {
             opacity: 1,
-            duration: 1
+            duration: CONFIG.loader.textDuration
         }, "-=0.5");
 
 
-    // --- 3. ScrollTrigger Animations ---
-
-    // Hero Parallax
+    // --- 3. スクロール連動アニメーション ---
     gsap.to(".hero-content", {
         scrollTrigger: {
             trigger: "#hero",
@@ -104,12 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
             end: "bottom top",
             scrub: true,
         },
-        scale: 1.5,
+        scale: CONFIG.animation.heroScale,
         opacity: 0,
         ease: "none"
     });
 
-    // Marquee text
     gsap.to(".marquee-text span", {
         scrollTrigger: {
             trigger: "#about",
@@ -117,11 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
             end: "bottom top",
             scrub: 1
         },
-        xPercent: -20,
+        xPercent: CONFIG.animation.marqueeXPercent,
         ease: "none"
     });
 
-    // Profile image reveal
     const profileImg = document.querySelector(".about-visual .image-wrapper");
     if (profileImg) {
         gsap.set(profileImg, { clipPath: "inset(0 100% 0 0)" });
@@ -131,12 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 start: "top 70%",
             },
             clipPath: "inset(0 0% 0 0)",
-            duration: 1.5,
+            duration: CONFIG.animation.revealDuration,
             ease: "power4.out"
         });
     }
 
-    // Works grid stagger
     const workCards = document.querySelectorAll(".work-card");
     if (workCards.length > 0) {
         gsap.from(workCards, {
@@ -144,46 +184,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: ".works-grid",
                 start: "top 80%",
             },
-            y: 100,
+            y: CONFIG.animation.cardYOffset,
             opacity: 0,
-            duration: 1,
-            stagger: 0.2,
+            duration: CONFIG.animation.cardDuration,
+            stagger: CONFIG.animation.cardStagger,
             ease: "power3.out"
         });
     }
 
-    // Section headings fade in
     document.querySelectorAll(".section-heading").forEach(heading => {
         gsap.from(heading, {
             scrollTrigger: {
                 trigger: heading,
                 start: "top 85%",
             },
-            y: 50,
+            y: CONFIG.animation.headingYOffset,
             opacity: 0,
-            duration: 1,
+            duration: CONFIG.animation.cardDuration,
             ease: "power2.out"
         });
     });
 
 
-    // --- 4. Interactions ---
-
-    // Magnetic Button
+    // --- 4. ホバー・クリックのインタラクション ---
     const magneticBtns = document.querySelectorAll(".magnetic-btn");
     magneticBtns.forEach(btn => {
         btn.addEventListener("mousemove", (e) => {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+            gsap.to(btn, { 
+                x: x * CONFIG.animation.magneticFactor, 
+                y: y * CONFIG.animation.magneticFactor, 
+                duration: CONFIG.animation.magneticDuration 
+            });
         });
         btn.addEventListener("mouseleave", () => {
-            gsap.to(btn, { x: 0, y: 0, duration: 0.3 });
+            gsap.to(btn, { x: 0, y: 0, duration: CONFIG.animation.magneticDuration });
         });
     });
 
-    // 3D Tilt Effect
     const cards = document.querySelectorAll(".tilt-card");
     cards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
@@ -193,13 +233,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
+            const rotateX = ((y - centerY) / centerY) * -CONFIG.animation.tiltMaxRotation;
+            const rotateY = ((x - centerX) / centerX) * CONFIG.animation.tiltMaxRotation;
 
             gsap.to(card.querySelector(".card-inner"), {
                 rotateX: rotateX,
                 rotateY: rotateY,
-                duration: 0.5,
+                duration: CONFIG.animation.tiltDuration,
                 ease: "power1.out"
             });
         });
@@ -208,12 +248,11 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.to(card.querySelector(".card-inner"), {
                 rotateX: 0,
                 rotateY: 0,
-                duration: 0.5
+                duration: CONFIG.animation.tiltDuration
             });
         });
     });
 
-    // Filtering
     const filterBtns = document.querySelectorAll(".filter-btn");
     const workItems = document.querySelectorAll(".work-card");
 
@@ -226,7 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
             workItems.forEach(item => {
                 if (filterValue === "all" || item.getAttribute("data-category") === filterValue) {
                     item.style.display = "block";
-                    gsap.fromTo(item, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5 });
+                    gsap.fromTo(item, 
+                        { opacity: 0, scale: CONFIG.animation.filterScaleStart }, 
+                        { opacity: 1, scale: 1, duration: CONFIG.animation.filterDuration }
+                    );
                 } else {
                     item.style.display = "none";
                 }
@@ -236,7 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Modal behavior
+
+    // --- 5. モーダル表示とフォーム送信 ---
     const modal = document.getElementById("work-modal");
     const modalImg = document.getElementById("modal-img");
     const modalTitle = document.getElementById("modal-title");
@@ -282,17 +325,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const closeModal = () => modal.classList.remove("active");
+    const closeModal = () => {
+        modal.classList.remove("active");
+    };
     modalClose.addEventListener("click", closeModal);
     modalBg.addEventListener("click", closeModal);
 
-    // Form feedback (Mock)
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
         contactForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            alert("メッセージを送信しました。ありがとうございます！");
-            contactForm.reset();
+            try {
+                alert("メッセージを送信しました。ありがとうございます！");
+                contactForm.reset();
+            } catch (error) {
+                console.error("フォームの送信に失敗しました:", error);
+                alert("エラーが発生しました。時間をおいて再度お試しください。");
+            }
         });
     }
 });
