@@ -718,6 +718,10 @@ body.hovering .cursor-follower {
         align-items: stretch;
     }
 
+    .catchphrase {
+        font-size: 1.5rem;
+    }
+
     .hero-title {
         font-size: 12vw;
     }
