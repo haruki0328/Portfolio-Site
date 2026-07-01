@@ -92,6 +92,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- ハンバーガーメニュー（モバイル用ナビ開閉） ---
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    if (hamburger && navLinks) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navLinks.classList.remove("active");
+            });
+        });
+    }
+
     // --- 2. カスタムカーソルとローダー ---
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorFollower = document.querySelector(".cursor-follower");
