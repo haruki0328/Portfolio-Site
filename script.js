@@ -106,6 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 navLinks.classList.remove("active");
             });
         });
+        document.addEventListener("click", (e) => {
+            if (!navLinks.classList.contains("active")) return;
+            if (navLinks.contains(e.target) || hamburger.contains(e.target)) return;
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
+        });
     }
 
     // --- 2. カスタムカーソルとローダー ---
